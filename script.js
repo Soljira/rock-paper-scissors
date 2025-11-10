@@ -85,7 +85,7 @@
     ENDIF
 */
 
-console.log("Hello world");
+console.log("Rock Paper Scissors Game");
 let humanScore = 0;
 let computerScore = 0;
 
