@@ -10,5 +10,3 @@ Expected skills to demonstrate:
     -   Functions
     -   Loops
     -   Conditionals
-
-[Check the page here!](https://soljira.github.io/rock-paper-scissors/)
