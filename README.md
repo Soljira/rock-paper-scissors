@@ -10,5 +10,7 @@ Expected skills to demonstrate:
     -   Functions
     -   Loops
     -   Conditionals
+    -   DOM Manipulation
+    -   Events
 
 [Check the page here!](https://soljira.github.io/rock-paper-scissors/)
