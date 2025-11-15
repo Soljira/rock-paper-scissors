@@ -12,7 +12,6 @@
     5. Increment either the player's score or the computer's score
     6. Repeat step 1, until one of the players reaches a score of 5, then set keepPlaying to false
     7. If the player clicks 'Play Again', reset the scores to 0 and go back to step 1
-
 */
 
 console.log("Rock Paper Scissors Game");
@@ -21,11 +20,9 @@ let computerScore = 0;
 
 const choiceMenu = document.querySelector(".choices");
 const buttons = document.querySelectorAll("button");
-const btnRock = document.querySelector("#btn-rock");
-const btnPaper = document.querySelector("#btn-paper");
-const btnScissors = document.querySelector("#btn-scissors");
 const humanChoicePara = document.querySelector(".human-choice");
 const computerChoicePara = document.querySelector(".computer-choice");
+const roundResultsPara = document.querySelector(".roundResult");
 
 const resultsDiv = document.querySelector(".results");
 
@@ -40,30 +37,9 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    // let incorrectInput = true;
-    // let choice = "";
-    // while (incorrectInput) {
-    //     choice = prompt("choice: ").toLowerCase();
-    //     if (choice == "rock" || choice == "paper" || choice == "scissors") {
-    //         incorrectInput = false;
-    //     } else {
-    //         console.log(
-    //             "Incorrect input! The only choices are: 'rock', 'paper', and 'scissors'"
-    //         );
-    //     }
-    // }
-    // return choice;
-
-    let choice = "";
-
-    return choice;
-}
-
 function playRound(humanChoice, computerChoice) {
     console.log(`Human Choice: ${humanChoice}`);
     console.log(`Computer Choice: ${computerChoice}`);
-    const resultsDiv = document.querySelector(".results");
     const roundResultsPara = document.querySelector(".roundResult");
 
     humanChoicePara.textContent = `Human Choice: ${humanChoice}`;
@@ -121,32 +97,9 @@ function playRound(humanChoice, computerChoice) {
 }
 
 function playGame() {
-    let humanChoice = "";
     let computerChoice = "";
-    const roundResultsPara = document.querySelector(".roundResult");
-
     let round = 1;
-    let keepPlaying = true;
 
-    // while (keepPlaying) {
-    if (round === 5) {
-        keepPlaying = false;
-    }
-    // computerChoice = getComputerChoice();
-
-    // humanChoice = getHumanChoice();
-
-    console.log("-----------------------------------------");
-    // console.log(`Round ${round}`);
-
-    // playRound(humanChoice, computerChoice);
-    // round++;
-
-    // console.log(`Human Score: ${humanScore}`);
-    // console.log(`Computer Score: ${computerScore}`);
-    // }
-
-    // TODO: Score wont update at the last round
     choiceMenu.addEventListener("click", (event) => {
         let target = event.target;
         computerChoice = getComputerChoice();
@@ -163,25 +116,18 @@ function playGame() {
                     humanScorePara.textContent = `Human Score: ${humanScore}`;
                     computerScorePara.textContent = `Computer Score: ${computerScore}`;
                     round++;
-
                     break;
                 case "btn-paper":
-                    // choice = "paper";
                     playRound("paper", computerChoice);
-                    round++;
                     humanScorePara.textContent = `Human Score: ${humanScore}`;
                     computerScorePara.textContent = `Computer Score: ${computerScore}`;
-                    // roundCount.textContent = `${round}`;
-
+                    round++;
                     break;
                 case "btn-scissors":
-                    // choice = "scissors";
                     playRound("scissors", computerChoice);
                     humanScorePara.textContent = `Human Score: ${humanScore}`;
                     computerScorePara.textContent = `Computer Score: ${computerScore}`;
                     round++;
-                    // roundCount.textContent = `${round}`;
-
                     break;
             }
         } else {
@@ -205,16 +151,16 @@ function playGame() {
 
             playAgain.textContent = "Play Again";
             playAgain.addEventListener("click", () => {
+                // Resets all text and counters
                 computerChoice = "";
                 round = 1;
                 humanScore = 0;
                 computerScore = 0;
-                roundCount.textContent = `Round: ${round}`;
+                roundCount.textContent = `Round: `;
                 humanChoicePara.textContent = "";
                 computerChoicePara.textContent = "";
-
-                humanScorePara.textContent = `Human Score: ${humanScore}`;
-                computerScorePara.textContent = `Computer Score: ${computerScore}`;
+                humanScorePara.textContent = `Human Score:`;
+                computerScorePara.textContent = `Computer Score:`;
                 playAgain.remove();
                 winner.textContent = "";
                 roundResultsPara.textContent = "";
