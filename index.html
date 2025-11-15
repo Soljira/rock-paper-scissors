@@ -4,8 +4,21 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Rock Paper Scissors</title>
-        <script src="script.js"></script>
+        <script src="script.js" defer></script>
         <!-- change this to script:module later -->
     </head>
-    <body></body>
+    <body>
+        <div class="choices">
+            <button id="btn-rock">Rock</button>
+            <button id="btn-paper">Paper</button>
+            <button id="btn-scissors">Scissors</button>
+        </div>
+
+        <div class="results">
+            <p class="round">Round: 1</p>
+            <p class="human-score">Human Score: 0</p>
+            <p class="computer-score">Computer Score: 0</p>
+            <p class="roundResult"></p>
+        </div>
+    </body>
 </html>

@@ -13,81 +13,19 @@
     6. Repeat step 1, until one of the players reaches a score of 5, then set keepPlaying to false
     7. If the player clicks 'Play Again', reset the scores to 0 and go back to step 1
 
-    
-    Pseudocode:
-    SET humanScore to 0
-    SET computerScore to 0
-    SET round to 0
-    SET keepPlaying to true
-
-    SET humanChoice = "";
-    SET computerChoice = "";
-
-    WHILE keepPlaying is true
-        CALCULATE random number then multiply it by 100
-        IF num <= 33.33:
-            SET computerChoice = "rock"
-        ELSE IF num <= 66.66 && num > 33.33:
-            SET computerChoice = "paper"
-        ELSE:
-            SET computerChoice = "scissors"
-        ENDIF
-
-        READ humanChoice
-
-        CASE humanChoice OF
-            humanChoice === "rock":
-                IF computerChoice === "rock":
-                    PRINT "Tie"
-                ELSE IF computerChoice === "paper":
-                    PRINT "You lose"
-                    INCREMENT computerScore
-                ELSE IF computerChoice === "scissors":
-                    PRINT "You win"
-                    INCREMENT humanScore
-                ENDIF
-                BREAK
-            humanChoice === "paper":
-                IF computerChoice === "rock":
-                    PRINT "You win"
-                    INCREMENT humanScore                
-                ELSE IF computerChoice === "paper":
-                    PRINT "Tie"
-                ELSE IF computerChoice === "scissors":
-                    PRINT "You lose"
-                    INCREMENT computerScore
-                ENDIF
-                BREAK
-            humanChoice === "scissors":
-                IF computerChoice === "rock":
-                    PRINT "You lose"
-                    INCREMENT computerScore                
-                ELSE IF computerChoice === "paper":
-                    PRINT "You win"
-                    INCREMENT humanScore    
-                ELSE IF computerChoice === "scissors":
-                    PRINT "Tie"
-                ENDIF
-                BREAK
-        ENDCASE
-
-        INCREMENT round
-
-        IF round == 5
-            SET keepPlaying to false
-        ENDIF
-    ENDWHILE
-
-    IF humanScore > computerScore:
-        PRINT "Human wins!"
-    ELSE:
-        PRINT "Computer wins!"
-    ENDIF
 */
 
 console.log("Rock Paper Scissors Game");
 let humanScore = 0;
 let computerScore = 0;
+
+const choiceMenu = document.querySelector(".choices");
+const buttons = document.querySelectorAll("button");
+const btnRock = document.querySelector("#btn-rock");
+const btnPaper = document.querySelector("#btn-paper");
+const btnScissors = document.querySelector("#btn-scissors");
+
+const resultsDiv = document.querySelector(".results");
 
 function getComputerChoice() {
     const randomNum = Math.random() * 100;
@@ -101,35 +39,44 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    let incorrectInput = true;
+    // let incorrectInput = true;
+    // let choice = "";
+    // while (incorrectInput) {
+    //     choice = prompt("choice: ").toLowerCase();
+    //     if (choice == "rock" || choice == "paper" || choice == "scissors") {
+    //         incorrectInput = false;
+    //     } else {
+    //         console.log(
+    //             "Incorrect input! The only choices are: 'rock', 'paper', and 'scissors'"
+    //         );
+    //     }
+    // }
+    // return choice;
+
     let choice = "";
-    while (incorrectInput) {
-        choice = prompt("choice: ").toLowerCase();
-        if (choice == "rock" || choice == "paper" || choice == "scissors") {
-            incorrectInput = false;
-        } else {
-            console.log(
-                "Incorrect input! The only choices are: 'rock', 'paper', and 'scissors'"
-            );
-        }
-    }
+
     return choice;
 }
 
 function playRound(humanChoice, computerChoice) {
     console.log(`Human Choice: ${humanChoice}`);
     console.log(`Computer Choice: ${computerChoice}`);
+    const resultsDiv = document.querySelector(".results");
+    const roundResultsPara = document.querySelector(".roundResult");
 
     switch (humanChoice) {
         case "rock":
             if (computerChoice == "rock") {
                 console.log("Tie");
+                roundResultsPara.textContent = "Tie";
             } else if (computerChoice == "paper") {
                 computerScore++;
                 console.log("You lose!");
+                roundResultsPara.textContent = "You lose!";
             } else if (computerChoice == "scissors") {
                 humanScore++;
                 console.log("You win!");
+                roundResultsPara.textContent = "You win!";
             }
             break;
 
@@ -137,11 +84,14 @@ function playRound(humanChoice, computerChoice) {
             if (computerChoice == "rock") {
                 humanScore++;
                 console.log("You win!");
+                roundResultsPara.textContent = "You win!";
             } else if (computerChoice == "paper") {
                 console.log("Tie");
+                roundResultsPara.textContent = "Tie";
             } else if (computerChoice == "scissors") {
                 computerScore++;
                 console.log("You lose!");
+                roundResultsPara.textContent = "You lose!";
             }
             break;
 
@@ -149,11 +99,14 @@ function playRound(humanChoice, computerChoice) {
             if (computerChoice == "rock") {
                 computerScore++;
                 console.log("You lose!");
+                roundResultsPara.textContent = "You lose!";
             } else if (computerChoice == "paper") {
                 humanScore++;
                 console.log("You win!");
+                roundResultsPara.textContent = "You win!";
             } else if (computerChoice == "scissors") {
                 console.log("Tie");
+                roundResultsPara.textContent = "Tie";
             }
             break;
         default:
@@ -165,32 +118,112 @@ function playRound(humanChoice, computerChoice) {
 function playGame() {
     let humanChoice = "";
     let computerChoice = "";
+    const roundResultsPara = document.querySelector(".roundResult");
 
     let round = 1;
     let keepPlaying = true;
 
-    while (keepPlaying) {
-        if (round === 5) {
-            keepPlaying = false;
-        }
+    // while (keepPlaying) {
+    if (round === 5) {
+        keepPlaying = false;
+    }
+    // computerChoice = getComputerChoice();
+
+    // humanChoice = getHumanChoice();
+
+    console.log("-----------------------------------------");
+    // console.log(`Round ${round}`);
+
+    // playRound(humanChoice, computerChoice);
+    // round++;
+
+    // console.log(`Human Score: ${humanScore}`);
+    // console.log(`Computer Score: ${computerScore}`);
+    // }
+
+    // TODO: Score wont update at the last round
+    choiceMenu.addEventListener("click", (event) => {
+        let target = event.target;
         computerChoice = getComputerChoice();
-        humanChoice = getHumanChoice();
+        const roundCount = document.querySelector(".round");
+        roundCount.textContent = `Round: ${round}`;
 
-        console.log("-----------------------------------------");
-        console.log(`Round ${round}`);
+        const humanScorePara = document.querySelector(".human-score");
+        const computerScorePara = document.querySelector(".computer-score");
 
-        playRound(humanChoice, computerChoice);
-        round++;
+        if (round < 5) {
+            switch (target.id) {
+                case "btn-rock":
+                    playRound("rock", computerChoice);
+                    humanScorePara.textContent = `Human Score: ${humanScore}`;
+                    computerScorePara.textContent = `Computer Score: ${computerScore}`;
+                    round++;
 
-        console.log(`Human Score: ${humanScore}`);
-        console.log(`Computer Score: ${computerScore}`);
-    }
+                    break;
+                case "btn-paper":
+                    // choice = "paper";
+                    playRound("paper", computerChoice);
+                    round++;
+                    humanScorePara.textContent = `Human Score: ${humanScore}`;
+                    computerScorePara.textContent = `Computer Score: ${computerScore}`;
+                    // roundCount.textContent = `${round}`;
 
-    if (humanScore > computerScore) {
-        console.log("Human wins the game!");
-    } else {
-        console.log("Computer wins the game!");
-    }
+                    break;
+                case "btn-scissors":
+                    // choice = "scissors";
+                    playRound("scissors", computerChoice);
+                    humanScorePara.textContent = `Human Score: ${humanScore}`;
+                    computerScorePara.textContent = `Computer Score: ${computerScore}`;
+                    round++;
+                    // roundCount.textContent = `${round}`;
+
+                    break;
+            }
+        } else {
+            const winner = document.createElement("p");
+            if (humanScore > computerScore) {
+                console.log("Human wins the game!");
+                winner.textContent = "Human wins the game!";
+                choiceMenu.disabled = true;
+            } else if (humanScore < computerScore) {
+                console.log("Computer wins the game!");
+                winner.textContent = "Computer wins the game!";
+                choiceMenu.disabled = true;
+            } else {
+                console.log("It's a tie!");
+                winner.textContent = "It's a tie!";
+                choiceMenu.disabled = true;
+            }
+            choiceMenu.disabled = true;
+
+            const playAgain = document.createElement("button");
+
+            playAgain.textContent = "Play Again";
+            playAgain.addEventListener("click", () => {
+                computerChoice = "";
+                round = 1;
+                humanScore = 0;
+                computerScore = 0;
+                roundCount.textContent = `Round: ${round}`;
+
+                humanScorePara.textContent = `Human Score: ${humanScore}`;
+                computerScorePara.textContent = `Computer Score: ${computerScore}`;
+                playAgain.remove();
+                winner.textContent = "";
+                roundResultsPara.textContent = "";
+                choiceMenu.disabled = false;
+
+                buttons.forEach((button) => {
+                    button.disabled = false;
+                });
+            });
+            buttons.forEach((button) => {
+                button.disabled = true;
+            });
+            resultsDiv.appendChild(winner);
+            resultsDiv.appendChild(playAgain);
+        }
+    });
 }
 
 playGame();
