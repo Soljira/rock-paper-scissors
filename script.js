@@ -24,6 +24,8 @@ const buttons = document.querySelectorAll("button");
 const btnRock = document.querySelector("#btn-rock");
 const btnPaper = document.querySelector("#btn-paper");
 const btnScissors = document.querySelector("#btn-scissors");
+const humanChoicePara = document.querySelector(".human-choice");
+const computerChoicePara = document.querySelector(".computer-choice");
 
 const resultsDiv = document.querySelector(".results");
 
@@ -63,6 +65,9 @@ function playRound(humanChoice, computerChoice) {
     console.log(`Computer Choice: ${computerChoice}`);
     const resultsDiv = document.querySelector(".results");
     const roundResultsPara = document.querySelector(".roundResult");
+
+    humanChoicePara.textContent = `Human Choice: ${humanChoice}`;
+    computerChoicePara.textContent = `Computer Choice: ${computerChoice}`;
 
     switch (humanChoice) {
         case "rock":
@@ -205,6 +210,8 @@ function playGame() {
                 humanScore = 0;
                 computerScore = 0;
                 roundCount.textContent = `Round: ${round}`;
+                humanChoicePara.textContent = "";
+                computerChoicePara.textContent = "";
 
                 humanScorePara.textContent = `Human Score: ${humanScore}`;
                 computerScorePara.textContent = `Computer Score: ${computerScore}`;
